@@ -25,3 +25,9 @@ function Emitter() {
     }
   }
 }
+
+const emitter = new Emitter();
+const sub1 = emitter.subscribe('click', (...args) => console.log(args));
+const sub2 = emitter.subscribe('click', (...args) => console.log(args));
+emitter.emit('click', '1', '2')
+sub1.release()

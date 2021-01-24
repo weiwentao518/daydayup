@@ -3,10 +3,10 @@ function Sub(type, callback) {
   this.callback = callback;
   this.release = function () {
     console.log(this)
-    // this.subs[this.type] = this.subs[this.type].filter(function (item) {
-    //   return item !== this;
-    // });
-    this.callback = null
+    this.subs[this.type] = this.subs[this.type].filter(function (item) {
+      return item !== this;
+    });
+    // this.callback = null
   }
   this.exec = function (args) {
     console.log(args)
