@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Emitter</title>
 </head>
 <body>
 <script>
@@ -27,14 +27,22 @@ class Emitter {
     if (!this.subs[eventName]) {
       this.subs[eventName] = [];
     }
+    if (typeof callback !== 'function') {
+      throw new Error('The second parameter must be a callback function!')
+    }
     const sub = new Sub(eventName, callback)
     this.subs[eventName].push(sub);
-    sub.subs = this.subs
-    sub.eventName = eventName
     return sub
   }
 
   emit(eventName) {
+    if (!this.subs[eventName]) {
+      throw new Error(`The event ${eventName} is not registered！！`)
+    }
+
+    // 过滤掉已经被注销的事件
+    this.subs[eventName] = this.subs[eventName].filter(item => Boolean(item.callback))
+    // 拿到emit后面的参数～遍历执行
     const args = Array.prototype.slice.call(arguments, 1)
     this.subs[eventName].forEach(function (item) {
       item.exec(args);
@@ -45,7 +53,7 @@ class Emitter {
 const emitter = new Emitter();
 const sub1 = emitter.subscribe('click', (...args) => console.warn(args));
 const sub2 = emitter.subscribe('click', (...args) => console.warn(args));
-// emitter.emit('click', '1', '2');
+emitter.emit('click', 'wtf', '!?');
 sub1.release()
 emitter.emit('click', '1', '2');
 </script>
