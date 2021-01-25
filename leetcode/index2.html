@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Emitter {
+      constructor(_listeners) {
+        this._listeners = {}; //一个全局的对象
+      }
+      // Method
+      subscribe(type, callback) { // 注册事件
+        if (typeof this._listeners[type] === "undefined") {
+          this._listeners[type] = [];
+        }
+        if (typeof callback === "function") {
+          this._listeners[type].push(callback); //把事件函数存进去
+        }
+        return this;
+      }
+      emit(type) { // 触发事件
+        var args = Array.prototype.slice.call(arguments, 0)
+        var event = args.shift()
+        var list, events
+        if (!(events = this._listeners)) return
+        if (!(list = this._listeners[event])) return
+        for (var i = 0; i < list.length; i++) { // 把参数传进去
+          list[i].apply(this, args)
+        }
+        return this
+      }
+      release() { // 释放
+        console.log({
+          _listeners: this._listeners
+        })
+        // if (typeof type === "string") {
+        //   this._listeners[type].splice(fn, 1);
+        // }
+        return this;
+      }
+    }
+    // const emitter = new Emitter(); //初始化 emitter
+    // const array = [];
+    // const sub1 = emitter.subscribe('click',  (...args)=> console.log(args)); //注册
+    // array.push({sub1:0})
+    // const sub2 = emitter.subscribe('click',  (...args)=> console.log(args));
+    // array.push({sub1:1})
+    // emitter.release('click', array.sub1) // 释放
+    // emitter.emit('click',1,2) // 唤起
+
+
+    const emitter = new Emitter();
+    const sub1 = emitter.subscribe('click', (...args) => console.warn(args));
+    const sub2 = emitter.subscribe('click', (...args) => console.warn(args));
+    sub1.release()
+    emitter.emit('click', '1', '2');
+  </script>
+</body>
+
+</html>

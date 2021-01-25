@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+function Sub(eventName, callback) {
+  this.eventName = eventName;
+  this.callback = callback;
+  this.release = function () {
+    this.callback = null
+  }
+  this.exec = function (args) {
+    if (this.callback) {
+      this.callback.apply(this, args);
+    }
+  }
+}
+
+class Emitter {
+  subs = {}
+
+  subscribe(eventName, callback) {
+    if (!this.subs[eventName]) {
+      this.subs[eventName] = [];
+    }
+    const sub = new Sub(eventName, callback)
+    this.subs[eventName].push(sub);
+    sub.subs = this.subs
+    sub.eventName = eventName
+    return sub
+  }
+
+  emit(eventName) {
+    const args = Array.prototype.slice.call(arguments, 1)
+    this.subs[eventName].forEach(function (item) {
+      item.exec(args);
+    });
+  }
+}
+
+const emitter = new Emitter();
+const sub1 = emitter.subscribe('click', (...args) => console.warn(args));
+const sub2 = emitter.subscribe('click', (...args) => console.warn(args));
+// emitter.emit('click', '1', '2');
+sub1.release()
+emitter.emit('click', '1', '2');
+</script>
+</body>
+</html>
