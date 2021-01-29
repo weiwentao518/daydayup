@@ -8,7 +8,15 @@ const debounce = function(func, delay = 1000, immediate = false) {
   let timer
 
   return function(_this, ...args) {
+    console.log({
+      _this: this,
+      args
+    })
     const context = _this
+
+    if (immediate && timer === undefined) {
+      func.apply(context, args)
+    }
 
     timer && clearTimeout(timer)
 
@@ -18,9 +26,12 @@ const debounce = function(func, delay = 1000, immediate = false) {
         func.apply(context, args)
       }
     }, delay)
-
-    if (immediate && timer === undefined) {
-      func.apply(context, args)
-    }
   }
 }
+
+const consoler = debounce(function(a) {
+  console.log('哈哈哈哈哈哈', a)
+}, 1000, true)
+
+consoler()
+consoler()
