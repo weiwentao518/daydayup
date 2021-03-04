@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>干他娘的算法！</title>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="./vue/vue.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="demo"></canvas>
+  <!-- the app root element -->
+  <div id="app">
+    <Tree class="tree" :model="treeData"></Tree>
+  </div>
+
+  <!-- item template -->
+  <script type="text/x-template" id="tree-template">
+    <div>
+      {{model}}
+    </div>
+  </script>
+  <script src="./tree/BinarySortTree.js"></script>
+  <script>
+    const Tree = tree
+    // Vue.component('Tree', {
+    //   template: '#tree-template',
+    //   props: {
+    //     model: Object
+    //   },
+    //   data: function () {
+    //     return {
+    //       open: false
+    //     }
+    //   },
+    // })
+
+    // // boot up the demo
+    // new Vue({
+    //   el: '#app',
+    //   data: {
+    //     treeData: Tree
+    //   }
+    // })
+  </script>
+</body>
+
+</html>
