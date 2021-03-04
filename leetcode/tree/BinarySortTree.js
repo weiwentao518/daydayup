@@ -6,8 +6,8 @@ class Node {
   }
 }
 
-const Utils = {
-  insertNode(node, newNode) {
+class Utils {
+  static insertNode(node, newNode) {
     if (node.key > newNode.key) {
       if (node.left === null) {
         node.left = newNode
@@ -21,25 +21,25 @@ const Utils = {
         this.insertNode(node.right, newNode)
       }
     }
-  },
+  }
 
-  getMinNode(node) {
+  static getMinNode(node) {
     while(node && node.left !== null) {
       node = node.left
     }
 
     return node.key
-  },
+  }
 
-  getMaxNode(node) {
+  static getMaxNode(node) {
     while(node && node.right !== null) {
       node = node.right
     }
 
     return node.key
-  },
+  }
 
-  searchNode(node, key) {
+  static searchNode(node, key) {
     if (node === null) {
       return false
     }
@@ -51,31 +51,31 @@ const Utils = {
     } else {
       return true
     }
-  },
+  }
 
-  inOrderTrNode(node, callback) {
+  static inOrderTrNode(node, callback) {
     if (node) {
       this.inOrderTrNode(node.left, callback)
       callback(node.key)
       this.inOrderTrNode(node.right, callback)
     }
-  },
+  }
 
-  preOrderTrNode(node, callback) {
+  static preOrderTrNode(node, callback) {
     if (node) {
       callback(node.key)
       this.inOrderTrNode(node.left, callback)
       this.inOrderTrNode(node.right, callback)
     }
-  },
+  }
 
-  lastOrderTrNode(node, callback) {
+  static lastOrderTrNode(node, callback) {
     if (node) {
       this.inOrderTrNode(node.left, callback)
       this.inOrderTrNode(node.right, callback)
       callback(node.key)
     }
-  },
+  }
 }
 
 class BinarySortTree {
