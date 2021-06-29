@@ -6,16 +6,11 @@
  */
 const debounce = function(func, delay = 1000, immediate = false) {
   let timer
+  let _this = this
 
-  return function(_this, ...args) {
-    console.log({
-      _this: this,
-      args
-    })
-    const context = _this
-
+  return function() {
     if (immediate && timer === undefined) {
-      func.apply(context, args)
+      func.apply(_this)
     }
 
     timer && clearTimeout(timer)
@@ -23,7 +18,7 @@ const debounce = function(func, delay = 1000, immediate = false) {
     timer = setTimeout(() => {
       timer = undefined
       if (!immediate) {
-        func.apply(context, args)
+        func.apply(_this)
       }
     }, delay)
   }

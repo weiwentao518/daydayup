@@ -3,7 +3,7 @@
  * @param {*} func 执行函数
  * @param {*} delay 延迟
  */
-const throttle = function(func, delay = 1) {
+const throttle = function(func, delay = 1000) {
   let start = 0
 
   return function(_this, ...args) {

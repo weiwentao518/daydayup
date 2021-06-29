@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H5</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      /* border-radius: 50%; */
+      /* border: 1px solid #e5e5e5; */
+      /* -webkit-transform: scale(.5);
+      transform: scale(.5); */
+      background-image:
+      linear-gradient(180deg, red, red 50%, transparent 50%),
+      linear-gradient(270deg, red, red 50%, transparent 50%),
+      linear-gradient(0deg, red, red 50%, transparent 50%),
+      linear-gradient(90deg, red, red 50%, transparent 50%);
+      background-size: 100% 2px,2px 100% ,100% 2px, 2px 100%;
+      background-repeat: no-repeat;
+      background-position: top, right top,  bottom, left top;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>

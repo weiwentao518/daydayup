@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 5000vh;
+      background: cadetblue;
+      ;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="btn">我</button>
+  <script>
+    document.addEventListener('scroll', throttle(consoling, 1000))
+    const btn = document.querySelector('#btn')
+    btn.addEventListener('click', debounce((a, b) => {
+      console.log('hhhhh', a, b)
+    }, 1000, true))
+
+    function throttle(func, delay = 300) {
+      let start = 0;
+      return function () {
+        let now = new Date();
+        if (now - start >= delay) {
+          func();
+          start = now;
+        }
+      }
+    }
+
+    function consoling(a, b) {
+      console.log('hhhhhh', a, b)
+    }
+
+    function debounce(fn, wait, quick = false) {
+      let timer = null;
+      let _this = this;
+      return function (...args) {
+        if (timer) return;
+        if (quick && timer === null) {
+          fn()
+        }
+
+        timer && clearTimeout(timer)
+
+        timer = setTimeout(() => {
+          timer = null;
+          if (!quick) {
+            fn();
+          }
+        }, wait);
+      }
+    }
+  </script>
+</body>
+
+</html>

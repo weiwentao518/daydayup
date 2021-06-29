@@ -11,10 +11,20 @@ function _curry(fn, len, ...args) {
   }
 }
 
-const _fn = _curry(function (a, b, c, d, e) {
+function trueCurrying(fn, ...args) {
+  if (args.length >= fn.length) {
+    return fn(...args)
+  }
+
+  return function (...args2) {
+    return trueCurrying(fn, ...args, ...args2)
+  }
+}
+
+const _fn = trueCurrying(function (a, b, c, d, e) {
   console.log(a + b + c + d + e)
 });
-_fn(1,2,3,4,5);    //15
-_fn(1)(2)(3,4,5);  //15
-_fn(1,2)(3,4)(5);  //15
-_fn(1)(2)(3)(4)(5);  //15
+_fn(1, 2, 3, 4, 5); //15
+_fn(1)(2)(3, 4, 5); //15
+_fn(1, 2)(3, 4)(5); //15
+_fn(1)(2)(3)(4)(5); //15
