@@ -1,4 +1,4 @@
-const NUMS = new Array(10).fill(0).map((a, i) => a + i + '').concat('.')
+const NUMS = new Array(10).fill(0).map((_, i) => i + '').concat('.')
 
 const check = (version) => {
   const isLegal = version.split('').every(i => NUMS.includes(i))
